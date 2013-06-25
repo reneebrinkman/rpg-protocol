@@ -3,7 +3,7 @@ What is RPG Protocol?
 The RPG Protocol is an emerging open standard that is working towards 
 making the final frontier of interactive media, video games (in the form 
 of roleplaying games) a possibility for any creative individual.  The 
-goal is, if you create content for any medium included but not limited 
+goal is, if you create content for any medium including but not limited 
 to blogs, videos, graphics, writing, etc., than you are already very few 
 steps away from creating a complete RPG limited only by your 
 imagination.
