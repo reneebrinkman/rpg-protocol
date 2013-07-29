@@ -7,12 +7,14 @@ import area
 
 class EntityTest(unittest.TestCase):
     def setUp(self):
-        self.player = entity.Entity(entity_type='PC')
+        self.player = entity.Entity(entity_type='PC', name='me')
         self.robot = entity.Entity(entity_type='NPC')
         self.anotherplayer = entity.Entity(entity_type=0)
         self.anotherrobot = entity.Entity(entity_type=1)
         self.invalid = entity.Entity(entity_type=2)
         self.test_instance = entity.Entity(entity_type=1)
+        self.dummy = item.Item(name="traffic cone", has_inventory=False, portal=False)
+        self.place = area.Area({self.dummy.name: self.dummy}, {"me": self.player, "robot": self.robot})
     
     def test_init(self):
         self.assertEqual(self.player.entity_type, 0)
@@ -37,6 +39,12 @@ class EntityTest(unittest.TestCase):
         for j in range(i, i + 20):
             self.assertEqual(self.test_instance.validateEntityType(self.player.parseEntityType(i)), ['FAIL', i, 'nonexistent'])
             i = i + 1
+    
+    def test_pickUpItem(self):
+        self.assertEqual(self.player.inventory, {})
+        self.player.pickUpItem(area=self.place, item=self.dummy)
+        self.assertEqual(self.dummy, self.player.inventory[self.dummy.name])
+        
 
 class ItemTest(unittest.TestCase):
     def setUp(self):

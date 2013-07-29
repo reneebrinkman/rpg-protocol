@@ -5,7 +5,7 @@ class Entity:
 
 player characters, non-player characters, monsters, creatures, etc."""
     
-    def __init__(self, description='', entity_type='NPC', possible_entity_types=['PC', 'NPC']):
+    def __init__(self, description='', name='', entity_type='NPC', possible_entity_types=['PC', 'NPC'], initial_inventory={}):
         self.entity_types = possible_entity_types
         temp_entity_type = self.parseEntityType(entity_type)
         validation_result = self.validateEntityType(temp_entity_type)
@@ -13,6 +13,8 @@ player characters, non-player characters, monsters, creatures, etc."""
             self = self.__init__(entity_type='NPC')
         else:
             self.entity_type = temp_entity_type
+            self.inventory = initial_inventory
+            self.name = name
             self.description = description
 
     def parseEntityType(self, entity_type):
@@ -39,3 +41,17 @@ player characters, non-player characters, monsters, creatures, etc."""
             status = 'FAIL'
             et = 'nonexistent'
         return [status, i, et]
+    
+    def pickUpItem(self, area, item):
+        checksOut = False
+        for key, value in area.entities.iteritems():
+            if key == self.name and value == self:
+                for key2, value2 in area.items.iteritems():
+                    if key2 == item.name and value2 == item:
+                        checksOut = True
+        if checksOut:
+            del area.items[item.name]
+            self.inventory[item.name] = item
+        else:
+            # TODO: print error message for the specific game's designer/developer to use for debugging
+            pass
