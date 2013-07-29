@@ -3,5 +3,7 @@ class Item:
     
     weapons, armor, treasure, etc."""
     
-    def __init__():
-        pass
+    def __init__(self, portal, has_inventory, description=''):
+        self.has_inventory = has_inventory
+        self.portal = portal
+        self.description = description
