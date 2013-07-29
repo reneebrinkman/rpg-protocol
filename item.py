@@ -7,3 +7,7 @@ class Item:
         self.has_inventory = has_inventory
         self.portal = portal
         self.description = description
+    
+    def activatePortal(self, entity):
+        del self.portal.is_from.entities[entity.description]
+        self.portal.leads_to.entities[entity.description] = entity
