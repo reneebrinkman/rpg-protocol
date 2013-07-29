@@ -1,5 +1,6 @@
 import unittest
 
+import portal
 import entity
 import item
 import area
@@ -40,15 +41,33 @@ class EntityTest(unittest.TestCase):
 class ItemTest(unittest.TestCase):
     def setUp(self):
         self.treasure_chest = item.Item(portal=False, has_inventory=True)
-        self.tesseract = item.Item(portal=True, has_inventory=False, description="The main jewel in Odin's Treasure room on Asgard.  According to Agent Barton of S.H.I.E.L.D., it's a doorway to the other end of space.")
+        self.tesseract = item.Item(portal=True, has_inventory=False, description="The main jewel in Odin's treasure room on Asgard.  According to Agent Barton of S.H.I.E.L.D., it's a doorway to the other end of space.")
     
     def test_init(self):
         self.assertEqual(self.treasure_chest.has_inventory, True)
         self.assertEqual(self.tesseract.portal, True)
+        self.assertEqual(self.treasure_chest.portal, False)
+        self.assertEqual(self.tesseract.has_inventory, False)
+    
+    def test_activatePortal(self):
+        pass
+
+class PortalTest(unittest.TestCase):
+    def setUp(self):
+        self.public_door = portal.Portal(key_item=None, leads_to=area.Area([], []))
+        self.private_door = portal.Portal(key_item=item.Item(description="Skeleton Key", portal=False, has_inventory=False), leads_to=area.Area([], []))
+    
+    def test_init(self):
+        self.assertIsNone(self.public_door.key_item)
+        self.assertIsNotNone(self.private_door.key_item)
 
 class AreaTest(unittest.TestCase):
     def setUp(self):
-        self.start_area = area.Area([item.Item(description="door to plaza", portal=True, has_inventory=False)], [entity.Entity(description='some person', entity_type='PC'), entity.Entity(description="some person's robot", entity_type='NPC')])
+        self.plaza = area.Area([], [])
+        self.start = area.Area([item.Item(description="door to plaza", portal=True, has_inventory=False)], [entity.Entity(description='some person', entity_type='PC'), entity.Entity(description="some person's robot", entity_type='NPC')])
+    
+    def test_init(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()

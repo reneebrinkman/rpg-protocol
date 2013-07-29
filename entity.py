@@ -2,8 +2,8 @@ import types
 
 class Entity:
     """The Entity class defines the data for most animate objects in an RPG:
-    
-    player characters, non-player characters, monsters, creatures, etc."""
+
+player characters, non-player characters, monsters, creatures, etc."""
     
     def __init__(self, description='', entity_type='NPC', possible_entity_types=['PC', 'NPC']):
         self.entity_types = possible_entity_types
