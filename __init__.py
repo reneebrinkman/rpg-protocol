@@ -4,3 +4,4 @@ from item import Item
 from area import Area
 from stat import Stat
 from skill import Skill
+from game import Game
