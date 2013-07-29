@@ -4,6 +4,11 @@ import portal
 import entity
 import item
 import area
+import skill
+
+class SkillTest(unittest.TestCase):
+    def setUp(self):
+        pass
 
 class EntityTest(unittest.TestCase):
     def setUp(self):

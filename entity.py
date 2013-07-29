@@ -5,7 +5,7 @@ class Entity:
 
 player characters, non-player characters, monsters, creatures, etc."""
     
-    def __init__(self, description='', name='', entity_type='NPC', possible_entity_types=['PC', 'NPC'], initial_inventory={}):
+    def __init__(self, description='', name='', entity_type='NPC', possible_entity_types=['PC', 'NPC'], initial_inventory={}, skills={}, stats={}):
         self.entity_types = possible_entity_types
         temp_entity_type = self.parseEntityType(entity_type)
         validation_result = self.validateEntityType(temp_entity_type)
