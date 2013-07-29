@@ -7,13 +7,14 @@ class Entity:
     
     player characters, non-player characters, monsters, creatures, etc."""
     
-    def __init__(self, entity_type):
+    def __init__(self, description='', entity_type='NPC'):
         temp_entity_type = self.parseEntityType(entity_type)
         validation_result = self.validateEntityType(temp_entity_type)
         if validation_result[0] == 'FAIL':
-            self = self.__init__('NPC')
+            self = self.__init__(entity_type='NPC')
         else:
             self.entity_type = temp_entity_type
+            self.description = description
 
     def parseEntityType(self, entity_type):
         if type(entity_type) is not types.IntType:
