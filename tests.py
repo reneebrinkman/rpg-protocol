@@ -28,7 +28,7 @@ class EntityTest(unittest.TestCase):
 
     def test_validateEntityType(self):
         i = 0
-        for et in entity.entity_types:
+        for et in self.test_instance.entity_types:
             self.assertEqual(self.test_instance.validateEntityType(self.player.parseEntityType(et)), ['OK', i, et])
             self.assertEqual(self.test_instance.validateEntityType(self.player.parseEntityType(i)), ['OK', i, et])
             i = i + 1

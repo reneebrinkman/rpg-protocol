@@ -1,13 +1,12 @@
 import types
 
-entity_types = ['PC', 'NPC']
-
 class Entity:
     """The Entity class defines the data for most animate objects in an RPG:
     
     player characters, non-player characters, monsters, creatures, etc."""
     
-    def __init__(self, description='', entity_type='NPC'):
+    def __init__(self, description='', entity_type='NPC', possible_entity_types=['PC', 'NPC']):
+        self.entity_types = possible_entity_types
         temp_entity_type = self.parseEntityType(entity_type)
         validation_result = self.validateEntityType(temp_entity_type)
         if validation_result[0] == 'FAIL':
@@ -20,7 +19,7 @@ class Entity:
         if type(entity_type) is not types.IntType:
             i = 0
             temp_entity_type = ''
-            for et in entity_types:
+            for et in self.entity_types:
                 if entity_type == et:
                     temp_entity_type = i
                 i = i + 1
@@ -35,7 +34,7 @@ class Entity:
         status = 'OK'
         i = parsed_entity_type
         try:
-            et = entity_types[i]
+            et = self.entity_types[i]
         except IndexError:
             status = 'FAIL'
             et = 'nonexistent'
