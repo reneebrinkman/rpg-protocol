@@ -14,4 +14,5 @@ class Item:
             del self.portal.is_from.entities[entity.description]
             self.portal.leads_to.entities[entity.description] = entity
         else:
+            # TODO: print error message for the specific game's designer/developer to use for debugging
             pass

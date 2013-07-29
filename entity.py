@@ -55,3 +55,17 @@ player characters, non-player characters, monsters, creatures, etc."""
         else:
             # TODO: print error message for the specific game's designer/developer to use for debugging
             pass
+    
+    def dropItem(self, area, item):
+        checksOut = False
+        for key, value in area.entities.iteritems():
+            if key == self.name and value == self:
+                for key2, value2 in self.inventory.iteritems():
+                    if key2 == item.name and value2 == item:
+                        checksOut = True
+        if checksOut:
+            del self.inventory[item.name]
+            area.items[item.name] = item
+        else:
+            # TODO: print error message for the specific game's designer/developer to use for debugging
+            pass
