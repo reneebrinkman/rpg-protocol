@@ -5,7 +5,7 @@ class Entity:
 
 player characters, non-player characters, monsters, creatures, etc."""
     
-    def __init__(self, description='', name='', entity_type='NPC', possible_entity_types=['PC', 'NPC'], initial_inventory={}, skills={}):
+    def __init__(self, description='', name='', entity_type='NPC', possible_entity_types=['PC', 'NPC'], initial_inventory={}, skills={}, statmods={}, skillexp={}, perk_points=0, perk_credits=0, killreward=0):
         self.entity_types = possible_entity_types
         temp_entity_type = self.parseEntityType(entity_type)
         validation_result = self.validateEntityType(temp_entity_type)
@@ -15,9 +15,31 @@ player characters, non-player characters, monsters, creatures, etc."""
             self.entity_type = temp_entity_type
             self.inventory = initial_inventory
             self.skills=skills
+            self.stat_mods = statmods
+            self.skill_experience = skillexp
+            self.perk_points = perk_points
+            self.perk_credits = perk_credits
+            for i, j in self.skills.iteritems():
+                 self.perk_points += j.perk_points[self.experienceToLevel(i) - 1]
+                 self.perk_credits += j.perk_credits[self.experienceToLevel(i) - 1]
+            self.killreward = killreward
             self.name = name
             self.description = description
-
+            
+    def statValue(self, name):
+        return self.skills[name] + self.stat_mods[name]
+    
+    def experienceToLevel(self, skill_name):
+        level = 1
+        for i in self.skills[skill_name].exp_curve:
+            if self.skill_experience[skill_name] >= i:
+                level += 1
+        return level
+        
+    def spendPerkPoint(self, amount, stat_name):
+        self.stat_mods[stat_name] += amount
+        self.perk_points -= amount
+    
     def parseEntityType(self, entity_type):
         if type(entity_type) is not types.IntType:
             i = 0
